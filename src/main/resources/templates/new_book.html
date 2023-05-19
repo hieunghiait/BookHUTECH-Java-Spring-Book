@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title style="text-align: center">Book Management System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body style="height: 10000px">
+<div th:replace="layout :: header"> </div>
+<div class="container">
+    <h1 style="text-align: center">Book Management System</h1>
+    <hr>
+    <h2>Save Book</h2>
+    <form th:action="@{saveBook}" th:object="${book}" method="POST">
+        <label style="font-weight: bold">Title</label>
+        <input required type="text" th:field="*{title}" placeholder="Title" class="form-control mb-4 col-4">
+        <label style="font-weight: bold">Author</label>
+        <input required type="text" th:field="*{author}" placeholder="Author" class="form-control mb-4 col-4">
+        <label style="font-weight: bold">Price</label>
+        <input required type="number" th:field="*{price}" placeholder="Price" class="form-control mb-4 col-4">
+        <label style="font-weight: bold">Category</label>
+        <input required type="text" th:field="*{category}" placeholder="Category" class="form-control mb-4 col-4">
+        <button type="submit" class="btn btn-info col2">Save</button>
+    </form>
+    <hr>
+    <a th:href="@{/}">Back to Book list</a>
+</div>
+<div th:replace="layout :: footer"> </div>
+</body>
+</html>
