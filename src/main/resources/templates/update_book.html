@@ -12,19 +12,48 @@
     <h1 style="text-align: center">Book Management System</h1>
     <hr>
     <h2>Update Book</h2>
-    <form th:action="@{/saveBook}" th:object="${book}" method="POST">
+    <form th:action="@{saveBook}" th:object="${book}" class="form-horizontal" method="post">
         <input type="hidden" th:field="*{id}"/>
-        <label style="font-weight: bold">ID (Read only)</label>
-        <input readonly="true" class="form-control mb-4 col-4" type="text" th:field="*{id}"/>
-        <label style="font-weight: bold">Title</label>
-        <input required type="text" th:field="*{title}" placeholder="Title" class="form-control mb-4 col-4">
-        <label style="font-weight: bold">Author</label>
-        <input required type="text" th:field="*{author}" placeholder="Author" class="form-control mb-4 col-4">
-        <label style="font-weight: bold">Price</label>
-        <input required type="number" th:field="*{price}" placeholder="Price" class="form-control mb-4 col-4">
-        <label style="font-weight: bold">Category</label>
-        <input required type="text" th:field="*{category}" placeholder="Category" class="form-control mb-4 col-4">
-        <button type="submit" class="btn btn-info col2">Save changes</button>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label font-weight-bold">ID (Read only)</label>
+            <div class="col-sm-10">
+                <input readonly="true" class="form-control-plaintext" type="text" th:field="*{id}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label font-weight-bold">Title</label>
+            <div class="col-sm-10">
+                <input required type="text" th:field="*{title}" placeholder="Title" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label font-weight-bold">Author</label>
+            <div class="col-sm-10">
+                <input required type="text" th:field="*{author}" placeholder="Author" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label font-weight-bold">Price</label>
+            <div class="col-sm-10">
+                <input required type="number" th:field="*{price}" placeholder="Price" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label font-weight-bold">Category</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="category" name="category.id">
+                    <option th:each="category : ${categories}"
+                            th:value="${category.id}"
+                            th:text="${category.name}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-sm-2 col-sm-10">
+                <button type="submit" class="btn btn-info">Save changes</button>
+            </div>
+        </div>
     </form>
     <hr>
     <a th:href="@{/}">Back to Book list</a>

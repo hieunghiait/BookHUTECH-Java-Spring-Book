@@ -1,9 +1,10 @@
 package lehieunghia.springboot.buoi2.controller;
 
-import jakarta.validation.constraints.Email;
 import lehieunghia.springboot.buoi2.model.Book;
 import lehieunghia.springboot.buoi2.repository.BookRepository;
+import lehieunghia.springboot.buoi2.repository.CategoryRepository;
 import lehieunghia.springboot.buoi2.service.BookService;
+import lehieunghia.springboot.buoi2.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -19,12 +20,18 @@ public class Bookcontroller {
     @Autowired
     private BookService bookService;
     @Autowired
+    private CategoryService categoryService;
+    @Autowired
     private BookRepository bookRepository;
+
+    @GetMapping("/index")
+    public String index() {
+        return "index";
+    }
 
     @GetMapping("/")
     public String homePage(Model model, @Param("keyword") String keyword) {
         return findPaginated(1, "title", "asc", model);
-        //model.addAttribute("listBooks", bookService.getAllBook());
     }
 
 
@@ -32,6 +39,7 @@ public class Bookcontroller {
     public String showNewBookForm(Model model) {
         Book book = new Book();
         model.addAttribute("book", book);
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "new_book";
     }
 
@@ -45,6 +53,7 @@ public class Bookcontroller {
     public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
         Book book = bookService.getBookById(id);
         model.addAttribute("book", book);
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "update_book";
     }
 
@@ -83,7 +92,7 @@ public class Bookcontroller {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("listBooks", listBooks);
-        return "index";
+        return "homepage";
     }
 
     @GetMapping("/book/search")

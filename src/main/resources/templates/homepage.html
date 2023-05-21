@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <title>Home</title>
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+<div>
+    <h1 class="text-center">Book List</h1>
+    <form action="book/search" method="get">
+        <input type="text" name="query">
+        <button type="submit">Search</button>
+    </form>
+    <a style="margin-left: 20px" th:href="@{showNewBookForm}" class="btn btn-primary btn-sm mb-3"> Add a new book </a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">ID</a>
+            </th>
+            <th scope="col">
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=title&sortDir=' + ${reverseSortDir}}">Title</a>
+            </th>
+            <th scope="col">
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=author&sortDir=' + ${reverseSortDir}}">Author</a>
+            </th>
+            <th scope="col">
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=price&sortDir=' + ${reverseSortDir}}">Price</a>
+            </th>
+            <th scope="col">
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=category&sortDir=' + ${reverseSortDir}}">Category</a>
+            </th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${listBooks}">
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.price}"></td>
+            <td th:text="${book.category.name}"></td>
+            <td>
+                <a th:href="@{/showFormForUpdate/{id}(id=${book.id})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/deleteBook/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/book/details/{id}(id = ${book.id})}" class="text-light btn btn-info">Detail</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div class="col-sm-1">
+     <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}"
+         th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+     </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div th:replace="layout :: footer"></div>
+</body>
+</html>
+<script>
+    function confirmAction(event) {
+        event.preventDefault();
+        var confirmation = confirm("Are you sure you want to delete this book?");
+        if (confirmation === true) {
+            window.location.href = event.currentTarget.getAttribute('href');
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>

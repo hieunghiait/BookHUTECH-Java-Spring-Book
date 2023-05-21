@@ -20,9 +20,9 @@
                 <div class="card-body">
                     <p class="card-text">ID: <span class="font-weight-bold" th:text="${bookDetails.id}"></span></p>
                     <p class="card-text">Title: <span class="font-weight-bold" th:text="${bookDetails.title}"></span></p>
-                    <p class="card-text">Price: <span class="font-weight-bold" th:text="${bookDetails.price}"></span></p>
                     <p class="card-text">Author: <span class="font-weight-bold" th:text="${bookDetails.author}"></span></p>
-                    <p class="card-text">Category: <span class="font-weight-bold" th:text="${bookDetails.category}"></span></p>
+                    <p class="card-text">Price: <span class="font-weight-bold" th:text="${bookDetails.price}"></span></p>
+                    <p class="card-text">Category: <span class="font-weight-bold" th:text="${bookDetails.category.name}"></span></p>
                 </div>
                 <a style="margin-left: auto; font-weight: bold" th:href="@{/}">Back to home</a>
             </div>
