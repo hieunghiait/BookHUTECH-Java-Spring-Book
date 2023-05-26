@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+<div>
+    <form th:action="@{/category/saveCategory}" th:object="${category}" method="POST">
+        <div class="form-group">
+            <label style="font-weight: bold">Name</label>
+            <input required type="text" th:field="*{name}" placeholder="Name" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-info">Save</button>
+    </form>
+    <hr>
+    <a href="/category/listCategory">Back to list category</a>
+</div>
+<div th:replace="layout :: footer"></div>
+</body>
+</html>
