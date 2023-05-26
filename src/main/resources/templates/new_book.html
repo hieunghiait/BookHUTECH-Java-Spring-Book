@@ -18,18 +18,15 @@
 
             <label style="font-weight: bold">Title</label>
             <input required type="text" th:field="*{title}" placeholder="Title" class="form-control">
-            <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
 
         </div>
         <div class="form-group">
             <label style="font-weight: bold">Author</label>
             <input required type="text" th:field="*{author}" placeholder="Author" class="form-control">
-
         </div>
         <div class="form-group">
             <label style="font-weight: bold">Price</label>
             <input required type="number" th:field="*{price}" placeholder="Price" class="form-control">
-            <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
 
         </div>
         <div class="form-group">
@@ -38,7 +35,6 @@
                 <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
                 </option>
             </select>
-            <span class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
         </div>
         <button type="submit" class="btn btn-info">Save</button>
     </form>

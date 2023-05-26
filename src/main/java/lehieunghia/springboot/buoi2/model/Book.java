@@ -1,9 +1,10 @@
 package lehieunghia.springboot.buoi2.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Constraint;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lehieunghia.springboot.buoi2.validator.annotaion.ValidCategoryId;
-import lehieunghia.springboot.buoi2.validator.annotaion.ValidUserId;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,11 +13,11 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     @Column(name = "title")
     /*@NotEmpty(message = "Title must not be empty")
     @Size(min = 3, max = 50, message = "Title must be less than 50 characters")*/
@@ -31,12 +32,8 @@ public class Book {
     private Double price;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_id")
     private Category category;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
 
     public Book() {
 
